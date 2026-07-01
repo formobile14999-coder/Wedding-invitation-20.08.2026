@@ -33,7 +33,6 @@
 
         body, html {
             width: 100%;
-            overflow-x: hidden;
             background-color: #0b0b0b;
             font-family: 'Century Gothic', sans-serif;
             color: #ffffff;
@@ -55,41 +54,56 @@
             filter: brightness(0.65);
         }
 
-        /* Mobile Container to enforce 9:16 vibe on desktop, responsive on mobile */
+        /* Mobile Wrapper */
         .wrapper {
-            max-width: 480px;
+            max-width: 450px;
             margin: 0 auto;
             position: relative;
-            min-height: 100vh;
             padding: 20px 15px;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 25px;
+            align-items: center;
         }
 
-        /* Initial Fade In for whole page */
         .fade-in-page {
             opacity: 0;
             animation: fadeInPageAnim 1.8s ease-out forwards;
         }
 
         @keyframes fadeInPageAnim {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Glassmorphism Blocks */
+        /* Glassmorphism Blocks - Proportionate to 9:16 mobile screen but slightly smaller */
         .glass-block {
+            width: 100%;
+            aspect-ratio: 9 / 14.5; /* чуть меньше стандартного экрана 9:16 */
             background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            border-radius: 1px; /* Sharp premium edges like photos */
-            padding: 35px 25px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.4); /* белая тонкая рамка */
+            border-radius: 1px;
+            padding: 30px 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            position: relative;
+            
+            /* Animation */
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.2s ease, transform 1.2s ease;
+            transform: translateY(40px);
+            transition: opacity 1.3s cubic-bezier(0.25, 1, 0.5, 1), transform 1.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Специальное исключение для блоков с длинным контентом, чтобы не ломался скролл */
+        .glass-block.auto-height {
+            aspect-ratio: auto;
+            min-height: 80vh;
         }
 
         .glass-block.visible {
@@ -97,7 +111,7 @@
             transform: translateY(0);
         }
 
-        /* Typography Helper Classes */
+        /* Typography */
         .f-cormorant {
             font-family: 'Cormorant SC', serif;
             letter-spacing: 0.15em;
@@ -106,10 +120,10 @@
 
         .f-ceremonious {
             font-family: 'Ceremonious One', cursive;
-            font-size: 2.8rem;
+            font-size: 3.4rem; /* более крупные заголовки */
             line-height: 1.1;
             margin: 10px 0;
-            color: #f3e5ab; /* subtle elegant champagne gold tint */
+            color: #f5e6b3;
         }
 
         .f-gothic {
@@ -118,247 +132,205 @@
             line-height: 1.6;
             letter-spacing: 0.05em;
             font-weight: 300;
-            opacity: 0.9;
         }
 
-        /* Headers sizes matching premium samples */
-        h1.title {
+        h1.title-large {
+            font-size: 2.2rem; /* более крупный шрифт */
+            letter-spacing: 0.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Имена в 3 строки: ДЕНИС & ЕЛЕНА как на фото2 */
+        .names-3-rows {
+            font-size: 2.4rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin: 25px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .names-3-rows span:nth-child(2) {
             font-size: 1.8rem;
-            margin-bottom: 5px;
+            opacity: 0.8;
         }
 
-        h2.subtitle {
+        /* Дата в 3 строки */
+        .date-3-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
             font-size: 1.5rem;
-            margin-bottom: 15px;
+            margin: 20px 0;
         }
 
-        /* Initials Divider between slides without border */
-        .initials-divider {
-            text-align: center;
-            position: relative;
-            height: 80px;
-            margin: 15px 0;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 1s ease, transform 1s ease;
+        .date-day-large {
+            font-size: 3.2rem;
+            font-weight: bold;
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 2px 20px;
         }
-        
+
+        /* Наложение инициалов ДЕ (буква Е заходит на Д наполовину) */
+        .initials-divider {
+            width: 100%;
+            text-align: center;
+            height: 90px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+
         .initials-divider.visible {
             opacity: 1;
             transform: scale(1);
         }
 
-        .initials-container {
-            display: inline-block;
+        .initials-box {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 90px;
         }
 
-        .init-d {
+        .char-d {
             font-family: 'Cormorant SC', serif;
-            font-size: 2.6rem;
+            font-size: 3.6rem;
             position: absolute;
-            left: 15px;
-            top: 10px;
+            left: 10px;
+            top: 0;
             color: #ffffff;
+            z-index: 1;
         }
 
-        .init-e {
+        .char-e {
             font-family: 'Ceremonious One', cursive;
-            font-size: 3.2rem;
+            font-size: 4.2rem;
             position: absolute;
-            left: 38px;
-            top: 22px;
-            color: #f3e5ab;
+            left: 45px; /* Заходит на Д ровно наполовину */
+            top: 14px;
+            color: #f5e6b3;
+            z-index: 2;
         }
 
-        /* SVGs and graphics */
-        .fingerprint-heart {
-            width: 75px;
-            height: 75px;
-            margin: 20px auto 0 auto;
-            fill: none;
-            stroke: rgba(255, 255, 255, 0.85);
-            stroke-width: 1.5;
-        }
-
-        .double-arrow {
-            width: 24px;
-            height: 24px;
-            margin: 20px auto 0 auto;
-            fill: none;
-            stroke: rgba(255, 255, 255, 0.7);
-            stroke-width: 1.5;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-6px); }
-            60% { transform: translateY(-3px); }
-        }
-
-        /* Block Specific Layouts */
-        .date-row {
+        /* Фото-блоки с прописанными названиями */
+        .photo-container {
+            width: 100%;
+            height: 200px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.25);
+            margin: 15px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
-            margin: 25px 0;
-            font-size: 1.4rem;
-        }
-        
-        .date-day {
-            font-size: 2.8rem;
-            font-weight: bold;
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 5px 25px;
-            margin: 5px 0;
-        }
-
-        /* Premium Image Placeholder Grid/Collage */
-        .photo-placeholder {
-            width: 100%;
-            height: 220px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.2);
-            margin: 15px 0;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
             position: relative;
         }
 
-        .photo-placeholder svg {
-            width: 40px;
-            height: 40px;
-            opacity: 0.3;
+        .photo-label {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.75rem;
+            font-family: 'Century Gothic', sans-serif;
+            opacity: 0.5;
+            letter-spacing: 0.1em;
+        }
+
+        .photo-container svg {
+            width: 36px;
+            height: 36px;
+            opacity: 0.25;
             fill: #fff;
+            margin-bottom: 8px;
         }
 
         /* Timeline Program */
         .timeline {
-            margin-top: 30px;
+            width: 100%;
+            margin-top: 20px;
             text-align: left;
-            padding-left: 10px;
         }
 
         .timeline-item {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             position: relative;
-            padding-left: 30px;
-            border-left: 1px solid rgba(255,255,255,0.2);
+            padding-left: 35px;
+            border-left: 1px solid rgba(255,255,255,0.25);
         }
 
         .timeline-time {
             font-family: 'Ceremonious One', cursive;
-            font-size: 2.2rem;
-            color: #f3e5ab;
+            font-size: 2.4rem;
+            color: #f5e6b3;
             position: absolute;
             left: -15px;
-            top: -10px;
-            background: transparent;
-            padding-right: 10px;
-        }
-
-        .timeline-content {
-            padding-top: 15px;
+            top: -12px;
         }
 
         .timeline-title {
             font-size: 1.1rem;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
-        /* Color Palette & Complex Collage Block 7 */
-        .color-swatch-container {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .color-swatch {
-            width: 50px;
-            height: 50px;
-            background-color: #000000;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
+        /* Коллажи */
         .collage-container {
-            margin-top: 30px;
-            position: relative;
-            height: 380px;
             width: 100%;
+            position: relative;
+            height: 240px;
+            margin-top: 20px;
         }
 
-        .collage-title {
-            font-size: 0.85rem;
-            letter-spacing: 0.2em;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-
-        .collage-img {
+        .collage-img-box {
             position: absolute;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
         
-        /* Overlapping positions like standard premium photo collage */
-        .img-1 { width: 55%; height: 200px; left: 0; top: 10px; z-index: 2; }
-        .img-2 { width: 50%; height: 160px; right: 0; top: 50px; z-index: 1; }
-        .img-3 { width: 48%; height: 160px; left: 8px; bottom: 10px; z-index: 3; }
-        .img-4 { width: 52%; height: 150px; right: 0; bottom: 30px; z-index: 2; }
+        .box-1 { width: 55%; height: 140px; left: 0; top: 10px; z-index: 2; }
+        .box-2 { width: 50%; height: 130px; right: 0; top: 40px; z-index: 1; }
+        .box-3 { width: 48%; height: 120px; left: 10px; bottom: 10px; z-index: 3; }
+        .box-4 { width: 52%; height: 120px; right: 0; bottom: 20px; z-index: 2; }
 
-        /* Info items Block 8 */
-        .info-sub-block {
-            margin-bottom: 30px;
-        }
-        .info-sub-block:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Countdown Timer style like photo 6 */
-        .timer-container {
+        /* Countdown */
+        .timer-grid {
             display: flex;
             justify-content: space-around;
-            margin-top: 25px;
+            width: 100%;
+            margin-top: 20px;
         }
 
-        .timer-item {
+        .timer-cell {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .timer-val {
-            font-size: 2.2rem;
-            font-weight: bold;
+        .timer-num {
+            font-size: 2.4rem;
             font-family: 'Cormorant SC', serif;
+            font-weight: bold;
         }
 
-        .timer-lbl {
+        .timer-text {
             font-size: 0.75rem;
-            text-transform: uppercase;
             opacity: 0.6;
-            margin-top: 4px;
-            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
-        /* Buttons & Forms */
+        /* Buttons & Iframe */
         .btn {
             display: inline-block;
             width: 100%;
-            padding: 15px 20px;
+            padding: 14px 20px;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.5);
             color: #fff;
@@ -366,36 +338,50 @@
             text-transform: uppercase;
             font-family: 'Cormorant SC', serif;
             letter-spacing: 0.15em;
-            font-size: 0.9rem;
-            margin-top: 20px;
+            font-size: 0.85rem;
+            margin-top: 15px;
             cursor: pointer;
-            transition: background 0.3s, border-color 0.3s;
+            transition: all 0.3s;
         }
 
-        .btn:hover, .btn:active {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #fff;
-        }
-
-        .iframe-container {
-            position: relative;
+        .iframe-box {
             width: 100%;
-            height: 520px;
-            margin-top: 20px;
+            height: 380px;
+            margin-top: 15px;
             border: 1px solid rgba(255,255,255,0.25);
-            background: rgba(0,0,0,0.2);
         }
 
-        .iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        .color-dot {
+            width: 45px;
+            height: 45px;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.6);
+            margin: 15px 0;
+        }
+
+        /* SVGs */
+        .icon-heart {
+            width: 70px;
+            height: 70px;
+            margin-top: 15px;
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.85);
+            stroke-width: 1.5;
+        }
+
+        .icon-arrow {
+            width: 22px;
+            height: 22px;
+            margin-top: 15px;
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.7);
+            stroke-width: 1.5;
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Loop Video (Floating chiffon fabric, clear of center triangle overlays) -->
+    <!-- Видеофон (ткань шифон) -->
     <video class="video-bg" autoplay loop muted playsinline>
         <source src="Video.Guru_20260701_142403928.mp4" type="video/mp4">
     </video>
@@ -404,31 +390,34 @@
 
         <!-- БЛОК 1 -->
         <div class="glass-block">
-            <div class="f-cormorant title">ВЫ ПОЛУЧИЛИ</div>
+            <div class="f-cormorant title-large">ВЫ ПОЛУЧИЛИ</div>
             <div class="f-ceremonious">Приглашение!</div>
-            
-            <!-- Fingerprint heart icon -->
-            <svg class="fingerprint-heart" viewBox="0 0 32 32">
+            <svg class="icon-heart" viewBox="0 0 32 32">
                 <path d="M16 28.5C16 28.5 2 20.5 2 11.5C2 7.5 5 4.5 9 4.5C11.5 4.5 14 6 16 8C18 6 20.5 4.5 23 4.5C27 4.5 30 7.5 30 11.5C30 20.5 16 28.5 16 28.5Z"/>
                 <path d="M16 11C15 9.5 13.5 9 12 9.5C10.5 10 10 11.5 10.5 13C11 14.5 13 16.5 16 19" stroke-dasharray="1 1.5"/>
                 <path d="M16 13C17.5 11.5 19 11 20.5 11.5C22 12 22.5 13.5 22 15C21.5 16.5 19.5 18.5 16 21" stroke-dasharray="1 1.5"/>
-                <path d="M16 8.5C16 8.5 14.5 7 12.5 7.5C10.5 8 9.5 10 10 12C10.5 14 13.5 17 16 20" stroke-dasharray="2 2"/>
             </svg>
         </div>
 
         <!-- БЛОК 2 -->
         <div class="glass-block">
-            <div class="f-cormorant title" style="font-size: 1.1rem;">ПРИГЛАШЕНИЕ НА СВАДЬБУ</div>
-            <div class="f-cormorant subtitle" style="font-size: 1.6rem; margin: 25px 0 15px 0; font-weight: bold; color: #fff;">ДЕНИС & ЕЛЕНА</div>
+            <div class="f-cormorant" style="font-size: 1.2rem; letter-spacing: 0.2em;">ПРИГЛАШЕНИЕ НА СВАДЬБУ</div>
             
-            <div class="date-row f-cormorant">
+            <!-- Имена крупнее и в 3 строки, как на фото2 -->
+            <div class="f-cormorant names-3-rows">
+                <span>ДЕНИС</span>
+                <span>&</span>
+                <span>ЕЛЕНА</span>
+            </div>
+            
+            <!-- Дата в 3 строки, как на фото2 -->
+            <div class="date-3-rows f-cormorant">
                 <div>20</div>
-                <div class="date-day">АВГУСТ</div>
+                <div class="date-day-large">АВГУСТ</div>
                 <div>2026</div>
             </div>
 
-            <!-- Double Arrow Down icon -->
-            <svg class="double-arrow" viewBox="0 0 24 24">
+            <svg class="icon-arrow" viewBox="0 0 24 24">
                 <path d="M4 8L12 16L20 8" />
                 <path d="M4 2L12 10L20 2" opacity="0.5"/>
             </svg>
@@ -436,18 +425,19 @@
 
         <!-- БЛОК 3 -->
         <div class="glass-block">
-            <div class="photo-placeholder">
+            <div class="photo-container">
                 <svg viewBox="0 0 24 24"><path d="M19 19H5V5H19M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M13.96 12.29L11.21 15.83L9.25 13.47L6.5 17H17.5L13.96 12.29Z"/></svg>
+                <div class="photo-label">Фото13</div>
             </div>
-            <div class="f-cormorant title" style="margin-top: 20px;">РОДНЫЕ И БЛИЗКИЕ!</div>
+            <div class="f-cormorant title-large" style="font-size: 1.6rem; margin-top: 10px;">РОДНЫЕ И БЛИЗКИЕ!</div>
             <div class="f-ceremonious">Мы женимся</div>
         </div>
 
-        <!-- Инициалы между слайдами -->
+        <!-- Наложение инициалов ДЕ (буква Е заходит на Д наполовину) -->
         <div class="initials-divider">
-            <div class="initials-container">
-                <span class="init-d">Д</span>
-                <span class="init-e">Е</span>
+            <div class="initials-box">
+                <span class="char-d">Д</span>
+                <span class="char-e">Е</span>
             </div>
         </div>
 
@@ -458,173 +448,159 @@
 
         <!-- БЛОК 5 -->
         <div class="glass-block">
-            <div class="f-cormorant title">Локация</div>
+            <div class="f-cormorant title-large" style="font-size: 1.6rem;">Локация</div>
             <div class="f-ceremonious">Место проведения</div>
             
-            <p class="f-gothic" style="margin: 15px 0;">…будут проходить в Геокуполе Edwin Group</p>
+            <p class="f-gothic" style="margin: 10px 0; font-weight: bold;">Выездная церемония и банкет будут проходить в Геокуполе Edwin Group</p>
             
-            <div class="photo-placeholder" style="height: 180px;">
+            <div class="photo-container">
                 <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22S19 14.25 19 9C19 5.13 15.87 2 12 2M12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5S14.5 7.62 14.5 9C14.5 10.38 13.62 11.5 12 11.5Z"/></svg>
+                <div class="photo-label">фото14</div>
             </div>
 
-            <p class="f-gothic" style="font-weight: bold;">Адрес: Лазурная ул., 23Б, Владивосток</p>
-            
+            <p class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Адрес: Лазурная ул., 23Б, Владивосток</p>
             <a href="https://yandex.ru/maps/?text=Лазурная+ул.,+23Б,+Владивосток" target="_blank" class="btn">На карте в Яндекс.Картах</a>
-            <a href="https://www.google.com/maps/search/?api=1&query=Лазурная+ул.,+23Б,+Владивосток" target="_blank" class="btn" style="margin-top: 10px; background: transparent;">В Google Maps</a>
         </div>
 
         <!-- БЛОК 6 -->
-        <div class="glass-block">
-            <div class="f-cormorant title">ВРЕМЯ</div>
+        <div class="glass-block auto-height">
+            <div class="f-cormorant title-large">ВРЕМЯ</div>
             <div class="f-ceremonious">Программа дня</div>
 
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-time">18:00</div>
-                    <div class="timeline-content">
-                        <div class="f-cormorant timeline-title" style="font-weight: bold;">Сбор гостей</div>
-                        <div class="f-gothic">Приветственные коктейли, легкие закуски и долгожданные встречи перед началом.</div>
-                    </div>
+                    <div class="f-cormorant timeline-title" style="font-weight: bold;">сбор гостей</div>
+                    <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Приветственные коктейли, легкие закуски и долгожданные встречи перед началом.</div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-time">18:30</div>
-                    <div class="timeline-content">
-                        <div class="f-cormorant timeline-title" style="font-weight: bold;">Церемония</div>
-                        <div class="f-gothic">Самый трогательный момент нашего дня, обмен клятвами и кольцами.</div>
-                    </div>
+                    <div class="f-cormorant timeline-title" style="font-weight: bold;">Церемония</div>
+                    <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Самый трогательный момент нашего дня, обмен клятвами и кольцами.</div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-time">19:00</div>
-                    <div class="timeline-content">
-                        <div class="f-cormorant timeline-title" style="font-weight: bold;">Банкет</div>
-                        <div class="f-gothic">Праздничный ужин, поздравления, танцы и веселье в уютной атмосфере.</div>
-                    </div>
+                    <div class="f-cormorant timeline-title" style="font-weight: bold;">Банкет</div>
+                    <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Праздничный ужин, поздравления, танцы и веселье в уютной атмосфере.</div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-time">01:00</div>
-                    <div class="timeline-content">
-                        <div class="f-cormorant timeline-title" style="font-weight: bold;">Завершение вечера</div>
-                        <div class="f-gothic">Прекрасный финал нашего незабываемого праздника.</div>
-                    </div>
+                    <div class="f-cormorant timeline-title" style="font-weight: bold;">Завершение вечера</div>
+                    <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Прекрасный финал нашего незабываемого праздника.</div>
                 </div>
             </div>
         </div>
 
-        <!-- Инициалы между слайдами -->
+        <!-- Наложение инициалов ДЕ (буква Е заходит на Д наполовину) -->
         <div class="initials-divider">
-            <div class="initials-container">
-                <span class="init-d">Д</span>
-                <span class="init-e">Е</span>
+            <div class="initials-box">
+                <span class="char-d">Д</span>
+                <span class="char-e">Е</span>
             </div>
         </div>
 
         <!-- БЛОК 7 -->
-        <div class="glass-block">
-            <div class="f-cormorant title" style="display:inline-block;">DRESS</div>
-            <div class="f-ceremonious" style="display:inline-block; margin-left: 5px;">Code</div>
+        <div class="glass-block auto-height">
+            <div>
+                <span class="f-cormorant title-large" style="font-size: 1.8rem; vertical-align: middle;">DRESS</span>
+                <span class="f-ceremonious" style="vertical-align: middle; margin-left: 5px;">Code</span>
+            </div>
             
-            <p class="f-gothic" style="margin-top: 15px; text-align: justify;">
+            <p class="f-gothic" style="margin-top: 10px; font-size: 0.9rem; opacity: 0.9;">
                 Мы очень ждём и готовимся к нашему незабываемому дню! Поддержите нас Вашими улыбками и объятиями, а также красивыми нарядами в палитре мероприятия! Также просим прихватить с собой черные солнцезащитные очки для фото и видео!
             </p>
 
-            <div class="color-swatch-container">
-                <div class="color-swatch"></div>
-            </div>
+            <div class="color-dot"></div>
 
-            <!-- Сложная композиция коллажей с наложением -->
+            <div class="f-cormorant" style="font-size: 0.9rem; letter-spacing: 0.1em; width: 100%; text-align: left; margin-top: 15px;">ЖЕНСКИЕ ОБРАЗЫ</div>
             <div class="collage-container">
-                <div class="collage-title f-cormorant">ЖЕНСКИЕ ОБРАЗЫ</div>
-                <div class="collage-img img-1">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255,255,255,0.2)"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2vbug6H7V9H1v2h6v11h2v-6h2v6h2V11h6V9z"/></svg>
+                <div class="collage-img-box box-1">
+                    <span style="font-size:0.75rem; opacity:0.4;">фото16-25</span>
                 </div>
-                <div class="collage-img img-2">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255,255,255,0.2)"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H7V9H1v2h6v11h2v-6h2v6h2V11h6V9z"/></svg>
-                </div>
+                <div class="collage-img-box box-2"></div>
             </div>
 
-            <div class="collage-container" style="height: 340px; margin-top: 10px;">
-                <div class="collage-title f-cormorant" style="text-align: right;">МУЖСКИЕ ОБРАЗЫ</div>
-                <div class="collage-img img-3">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255,255,255,0.2)"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H7V9H1v2h6v11h2v-6h2v6h2V11h6V9z"/></svg>
-                </div>
-                <div class="collage-img img-4">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255,255,255,0.2)"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H7V9H1v2h6v11h2v-6h2v6h2V11h6V9z"/></svg>
-                </div>
+            <div class="f-cormorant" style="font-size: 0.9rem; letter-spacing: 0.1em; width: 100%; text-align: right; margin-top: 15px;">МУЖСКИЕ ОБРАЗЫ</div>
+            <div class="collage-container" style="height: 200px;">
+                <div class="collage-img-box box-3"></div>
+                <div class="collage-img-box box-4"></div>
             </div>
         </div>
 
         <!-- БЛОК 8 -->
-        <div class="glass-block" style="text-align: left;">
-            <div class="f-ceremonious" style="text-align: center; margin-bottom: 25px;">Подсказка</div>
+        <div class="glass-block auto-height" style="text-align: center;">
+            <div class="f-ceremonious">Подсказка</div>
             
-            <div class="info-sub-block">
-                <div class="f-cormorant" style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">МЫ РЕШИЛИ / ЧТО ДАРИТЬ</div>
-                <div class="f-gothic">Не ломайте голову над подарками! Будем рады вашим улыбкам и вкладу в наш будущий семейный бюджет в элегантном конверте.</div>
+            <div style="margin-bottom: 20px;">
+                <!-- Заголовки посередине -->
+                <div class="f-cormorant" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 5px; text-align: center;">МЫ РЕШИЛИ / ЧТО ДАРИТЬ</div>
+                <p class="f-gothic" style="font-size: 0.9rem; opacity: 0.85;">Не ломайте голову над подарками! Будем рады вашим улыбкам и вкладу в наш будущий семейный бюджет в элегантном конверте.</p>
             </div>
 
-            <div class="info-sub-block">
-                <div class="f-cormorant" style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">"ГОРЬКО"</div>
-                <div class="f-gothic">На нашем празднике собрались люди разных возрастов и взглядов, и нам бы очень хотелось, чтобы каждый чувствовал себя абсолютно комфортно. Мы решили отойти от традиции кричать "Горько", чтобы не нарушать уютную и теплую атмосферу вечера.</div>
+            <div style="margin-bottom: 20px;">
+                <div class="f-cormorant" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 5px; text-align: center;">"ГОРЬКО"</div>
+                <p class="f-gothic" style="font-size: 0.9rem; opacity: 0.85;">На нашем празднике собрались люди разных возрастов и взглядов, и нам бы очень хотелось, чтобы каждый чувствовал себя абсолютно комфортно. Мы решили отойти от традиции кричать "Горько", чтобы не нарушать уютную атмосферу вечера.</p>
             </div>
 
-            <div class="info-sub-block">
-                <div class="f-cormorant" style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">18+</div>
-                <div class="f-gothic">Мы очень хотим, чтобы вы могли полностью расслабиться, никуда не спешить и сполна насладиться этим вечером. Именно поэтому мы приняли решение сделать нашу свадьбу событием только для взрослых. Пусть этот день станет для вас романтичным выходным без родительских забот!</div>
+            <div>
+                <div class="f-cormorant" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 5px; text-align: center;">18+</div>
+                <p class="f-gothic" style="font-size: 0.9rem; opacity: 0.85;">Мы очень хотим, чтобы вы могли полностью расслабиться, никуда не спешить и сполна насладиться этим вечером. Именно поэтому мы приняли решение сделать нашу свадьбу событием только для взрослых. Пусть этот день станет для вас романтичным выходным без родительских забот!</p>
             </div>
         </div>
 
         <!-- БЛОК 9 -->
         <div class="glass-block">
-            <div class="photo-placeholder" style="height: 150px; margin-bottom: 20px;">
+            <div class="photo-container" style="height: 140px;">
                 <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.62L12 2L9.19 8.62L2 9.24L7.45 13.97L5.82 21L12 17.27Z"/></svg>
+                <div class="photo-label">фото29</div>
             </div>
-            <div class="f-gothic" style="font-size: 1.1rem; font-weight: bold;">Мы станем семьей через:</div>
             
-            <div class="timer-container" id="countdown-timer">
-                <div class="timer-item">
-                    <span class="timer-val" id="days">00</span>
-                    <span class="timer-lbl">Дней</span>
+            <div class="f-gothic" style="font-size: 1.1rem; font-weight: bold; margin-top: 10px;">Мы станем семьей через:</div>
+            
+            <div class="timer-grid" id="countdown-timer">
+                <div class="timer-cell">
+                    <span class="timer-num" id="days">00</span>
+                    <span class="timer-text">Дней</span>
                 </div>
-                <div class="timer-item">
-                    <span class="timer-val" id="hours">00</span>
-                    <span class="timer-lbl">Часов</span>
+                <div class="timer-cell">
+                    <span class="timer-num" id="hours">00</span>
+                    <span class="timer-text">Часов</span>
                 </div>
-                <div class="timer-item">
-                    <span class="timer-val" id="minutes">00</span>
-                    <span class="timer-lbl">Минут</span>
+                <div class="timer-cell">
+                    <span class="timer-num" id="minutes">00</span>
+                    <span class="timer-text">Минут</span>
                 </div>
-                <div class="timer-item">
-                    <span class="timer-val" id="seconds">00</span>
-                    <span class="timer-lbl">Секунд</span>
+                <div class="timer-cell">
+                    <span class="timer-num" id="seconds">00</span>
+                    <span class="timer-text">Секунд</span>
                 </div>
             </div>
         </div>
 
         <!-- БЛОК 10 -->
-        <div class="glass-block">
-            <div class="f-cormorant title">АНКЕТА</div>
+        <div class="glass-block auto-height">
+            <div class="f-cormorant title-large">АНКЕТА</div>
             <div class="f-ceremonious">Анкета гостя</div>
             
-            <p class="f-gothic" style="margin-bottom: 15px;">Будем очень признательны, если вы подтвердите своё присутствие до 15 июля.</p>
+            <p class="f-gothic" style="font-size: 0.9rem; margin-bottom: 10px;">Будем очень признательны, если вы подтвердите своё присутствие до 15 июля</p>
             
-            <div class="iframe-container">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdsq3jWcumGlsCA_S-WeGRusXoxRx8IN81FzhqfpBlVTJj0Wg/viewform?embedded=true">Загрузка...</iframe>
+            <div class="iframe-box">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdsq3jWcumGlsCA_S-WeGRusXoxRx8IN81FzhqfpBlVTJj0Wg/viewform?embedded=true" style="width:100%; height:100%; border:none;">Загрузка...</iframe>
             </div>
 
-            <div class="f-cormorant title" style="margin-top: 40px;">С НЕТЕРПЕНИЕМ</div>
+            <div class="f-cormorant title-large" style="margin-top: 30px; font-size: 1.5rem;">С НЕТЕРПЕНИЕМ</div>
             <div class="f-ceremonious">Ждём вас</div>
         </div>
 
     </div>
 
     <script>
-        // Smooth scroll fade-in blocks animation using Intersection Observer
         document.addEventListener("DOMContentLoaded", function() {
             const blocks = document.querySelectorAll('.glass-block, .initials-divider');
             
             const observerOptions = {
                 root: null,
-                threshold: 0.12
+                threshold: 0.1
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
@@ -639,7 +615,7 @@
                 observer.observe(block);
             });
 
-            // Countdown Timer Logic
+            // Таймер обратного отсчета
             const targetDate = new Date("August 20, 2026 18:00:00").getTime();
 
             const timerInterval = setInterval(function() {
@@ -648,7 +624,7 @@
 
                 if (difference < 0) {
                     clearInterval(timerInterval);
-                    document.getElementById("countdown-timer").innerHTML = "<div class='f-cormorant' style='font-size:1.5rem; margin-top:15px;'>Этот счастливый день настал!</div>";
+                    document.getElementById("countdown-timer").innerHTML = "<div class='f-cormorant' style='font-size:1.3rem;'>Этот счастливый день настал!</div>";
                     return;
                 }
 
