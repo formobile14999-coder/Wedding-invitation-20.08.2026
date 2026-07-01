@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Денис &amp; Елена — Приглашение на свадьбу</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600;700&family=Marck+Script&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f6f0e6;
+  --cream-deep:#ece1cf;
+  --taupe:#c9b48c;
+  --taupe-dim:#b9a98c;
+  --ink:#3c2e22;
+  --ink-soft:#5b4a38;
+  --black:#14110e;
+  --glass-fill: rgba(255,255,255,.16);
+  --glass-fill-strong: rgba(255,255,255,.24);
+  --glass-border: rgba(255,255,255,.65);
+  --gold: #b99b6b;
+  --font-caps:'Cormorant SC', serif;
+  --font-script:'Marck Script', cursive;
+  --font-body:'Jost', 'Century Gothic', sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{
+  width:100%; height:100%;
+  background:#e9ddc9;
+  overflow:hidden;
+}
+body{
+  font-family:var(--font-body);
+  color:var(--ink);
+  opacity:0;
+  transition:opacity 1.4s ease;
+}
+body.loaded{opacity:1;}
+
+a{color:inherit; text-decoration:none;}
+button{font-family:inherit; border:none; background:none; cursor:pointer;}
+
+/* ---------- Ambient silk background ---------- */
+.silk-bg{
+  position:fixed; inset:0; z-index:0;
+  overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 50% -10%, #fbf7ee 0%, #efe3ce 45%, #e3d3b6 100%);
+}
+.silk-bg .blob{
+  position:absolute;
+  border-radius:48% 52% 55% 45% / 55% 45% 55% 45%;
+  filter:blur(38px);
+  opacity:.55;
+  mix-blend-mode:soft-light;
+  will-change:transform;
+}
+.silk-bg .b1{
+  width:120vw; height:60vh; left:-30vw; top:-10vh;
+  background:linear-gradient(120deg,#ffffff,#f1e6d2 60%,transparent);
+  animation:drift1 26s ease-in-out infinite alternate;
+}
+.silk-bg .b2{
+  width:100vw; height:55vh; right:-25vw; top:30vh;
+  background:linear-gradient(300deg,#fffdf8,#d9c6a2 55%,transparent);
+  animation:drift2 32s ease-in-out infinite alternate;
+}
+.silk-bg .b3{
+  width:110vw; height:60vh; left:-20vw; bottom:-15vh;
+  background:linear-gradient(80deg,#ffffff,#e7d7b8 50%,transparent);
+  animation:drift3 29s ease-in-out infinite alternate;
+}
+.silk-bg .sheen{
+  position:absolute; inset:-20% -20%;
+  background:linear-gradient(115deg, transparent 40%, rgba(255,255,255,.35) 50%, transparent 60%);
+  animation:sheen 12s linear infinite;
+  mix-blend-mode:overlay;
+}
+@keyframes drift1{
+  0%{transform:translate(0,0) rotate(0deg) scale(1);}
+  100%{transform:translate(4vw,3vh) rotate(6deg) scale(1.08);}
+}
+@keyframes drift2{
+  0%{transform:translate(0,0) rotate(0deg) scale(1);}
+  100%{transform:translate(-5vw,-4vh) rotate(-8deg) scale(1.1);}
+}
+@keyframes drift3{
+  0%{transform:translate(0,0) rotate(0deg) scale(1);}
+  100%{transform:translate(3vw,-3vh) rotate(5deg) scale(1.06);}
+}
+@keyframes sheen{
+  0%{transform:translateX(-30%) translateY(-10%);}
+  100%{transform:translateX(30%) translateY(10%);}
+}
+
+/* ---------- Phone shell / scroller ---------- */
+.phone-shell{
+  position:relative; z-index:1;
+  width:100%; height:100%;
+  max-width:430px;
+  margin:0 auto;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.phone-shell::-webkit-scrollbar{display:none;}
+
+.panel{
+  position:relative;
+  min-height:100%;
+  height:100vh;
+  scroll-snap-align:start;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 22px;
+}
+
+.divider-panel{
+  min-height:auto;
+  height:auto;
+  padding:36px 22px;
+  flex-shrink:0;
+}
+
+/* Glass card */
+.card{
+  position:relative;
+  width:100%;
+  background:var(--glass-fill);
+  border:1px solid var(--glass-border);
+  border-radius:2px;
+  backdrop-filter:blur(14px) saturate(115%);
+  -webkit-backdrop-filter:blur(14px) saturate(115%);
+  box-shadow:0 8px 40px rgba(60,46,34,.12), inset 0 0 0 1px rgba(255,255,255,.25);
+  padding:38px 26px;
+  text-align:center;
+}
+.card::before{
+  content:'';
+  position:absolute; inset:8px;
+  border:1px solid rgba(255,255,255,.55);
+  pointer-events:none;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+}
+.panel.in-view .reveal{opacity:1; transform:translateY(0);}
+.reveal:nth-child(1){transition-delay:.05s;}
+.reveal:nth-child(2){transition-delay:.18s;}
+.reveal:nth-child(3){transition-delay:.31s;}
+.reveal:nth-child(4){transition-delay:.44s;}
+.reveal:nth-child(5){transition-delay:.57s;}
+.reveal:nth-child(6){transition-delay:.70s;}
+.reveal:nth-child(7){transition-delay:.83s;}
+
+/* Typography */
+.eyebrow{
+  font-family:var(--font-caps);
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:.32em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.display-script{
+  font-family:var(--font-script);
+  font-size:40px;
+  line-height:1.05;
+  color:var(--ink);
+  font-weight:400;
+}
+.display-caps{
+  font-family:var(--font-caps);
+  font-weight:600;
+  font-size:26px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink);
+}
+.body-text{
+  font-family:var(--font-body);
+  font-weight:300;
+  font-size:14.5px;
+  line-height:1.65;
+  color:var(--ink-soft);
+}
+.hairline{
+  width:38px; height:1px; background:var(--taupe);
+  margin:16px auto;
+}
+
+/* Monogram divider */
+.monogram-wrap{
+  display:flex; align-items:center; justify-content:center;
+  gap:14px;
+}
+.monogram-wrap .line{flex:1; height:1px; background:linear-gradient(90deg, transparent, var(--taupe), transparent);}
+.monogram{
+  position:relative;
+  display:inline-flex;
+  align-items:baseline;
+  height:64px;
+}
+.monogram .d{
+  font-family:var(--font-caps);
+  font-weight:600;
+  font-size:46px;
+  color:var(--ink);
+}
+.monogram .e{
+  font-family:var(--font-script);
+  font-size:56px;
+  color:var(--gold);
+  margin-left:-10px;
+  position:relative;
+  top:14px;
+}
+
+/* Section 1 - cover */
+.cover-panel .card{padding:52px 30px 44px;}
+.cover-heart{
+  width:74px; height:74px;
+  margin:26px auto 6px;
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+}
+.cover-heart svg{width:100%; height:100%;}
+.tap-hint{
+  font-family:var(--font-body);
+  font-weight:300;
+  font-size:12.5px;
+  letter-spacing:.05em;
+  color:var(--ink-soft);
+  margin-top:14px;
+  animation:pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.55;}50%{opacity:1;}}
+
+/* Section 2 - names / date */
+.names{
+  font-family:var(--font-caps);
+  font-weight:600;
+  font-size:34px;
+  letter-spacing:.06em;
+  color:var(--ink);
+  margin:18px 0 22px;
+}
+.names .amp{
+  display:block; font-size:18px; color:var(--gold); margin:4px 0;
+}
+.date-stack{
+  font-family:var(--font-caps);
+  color:var(--ink);
+  line-height:1.15;
+}
+.date-stack .day{font-size:52px; font-weight:600;}
+.date-stack .month{font-size:20px; letter-spacing:.3em; text-transform:uppercase; margin:2px 0;}
+.date-stack .year{font-size:20px; letter-spacing:.2em;}
+.chevrons{margin-top:26px; display:flex; flex-direction:column; align-items:center; gap:2px; opacity:.65;}
+.chevrons svg{width:22px; height:12px; animation:bob 2s ease-in-out infinite;}
+.chevrons svg:nth-child(2){animation-delay:.25s;}
+@keyframes bob{0%,100%{transform:translateY(0); opacity:.4;}50%{transform:translateY(4px); opacity:.9;}}
+
+/* Photo frames */
+.photo-frame{
+  width:100%;
+  border-radius:2px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.7);
+  box-shadow:0 6px 24px rgba(60,46,34,.18);
+  margin-bottom:20px;
+}
+.photo-frame img{width:100%; display:block; object-fit:cover;}
+
+/* Section 5 location */
+.map-buttons{display:flex; gap:10px; margin-top:18px;}
+.map-btn{
+  flex:1;
+  font-family:var(--font-body);
+  font-size:11.5px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--ink);
+  border:1px solid var(--taupe);
+  padding:11px 6px;
+  text-align:center;
+  transition:background .3s;
+}
+.map-btn:hover{background:rgba(255,255,255,.35);}
+.address{
+  font-family:var(--font-body); font-weight:400; font-size:13px;
+  color:var(--ink-soft); margin-top:12px; letter-spacing:.02em;
+}
+
+/* Section 6 schedule */
+.schedule{margin-top:22px; text-align:left;}
+.schedule-row{
+  display:flex; gap:16px; align-items:flex-start;
+  padding:16px 0;
+  border-top:1px solid rgba(185,155,107,.35);
+}
+.schedule-row:first-child{border-top:none;}
+.schedule-time{
+  font-family:var(--font-script);
+  font-size:24px;
+  color:var(--gold);
+  min-width:78px;
+}
+.schedule-label{
+  font-family:var(--font-caps);
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+.schedule-desc{font-family:var(--font-body); font-weight:300; font-size:12.5px; color:var(--ink-soft); line-height:1.5;}
+
+/* Section 7 dress code */
+.swatch{
+  width:46px; height:46px;
+  background:var(--black);
+  border:1px solid rgba(255,255,255,.7);
+  margin:18px auto;
+}
+.mood-block{margin-top:26px;}
+.mood-title{
+  font-family:var(--font-caps); font-weight:600; font-size:14px;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft);
+  margin-bottom:10px;
+}
+.mood-frame{position:relative; margin-bottom:26px;}
+.mood-frame img{
+  width:100%; display:block; border-radius:2px;
+  border:1px solid rgba(255,255,255,.7);
+  box-shadow:0 10px 30px rgba(60,46,34,.2);
+}
+.mood-frame.women .accent{
+  position:absolute; width:38%; right:-8%; bottom:-14%;
+  border:3px solid #fff; box-shadow:0 8px 22px rgba(60,46,34,.28);
+  transform:rotate(4deg);
+  border-radius:2px; overflow:hidden;
+}
+.mood-frame.women .accent img{border:none; box-shadow:none;}
+
+/* Section 8 hints */
+.hint-block{text-align:left; margin-top:22px;}
+.hint-item{padding:16px 0; border-top:1px solid rgba(185,155,107,.35);}
+.hint-item:first-child{border-top:none; padding-top:0;}
+.hint-head{
+  font-family:var(--font-caps); font-weight:600; font-size:16px;
+  letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px;
+}
+
+/* Section 9 countdown */
+.countdown-illustration{margin:6px auto 22px; width:120px; opacity:.85;}
+.countdown{
+  display:flex; justify-content:center; gap:10px; margin-top:18px;
+}
+.count-box{
+  width:60px;
+  padding:12px 0 8px;
+  background:rgba(255,255,255,.28);
+  border:1px solid rgba(255,255,255,.7);
+}
+.count-num{font-family:var(--font-caps); font-weight:600; font-size:26px; color:var(--ink);}
+.count-lbl{font-family:var(--font-body); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px;}
+
+/* Section 10 RSVP */
+.rsvp-note{margin-top:14px;}
+.form-embed{
+  margin-top:22px; width:100%; height:560px;
+  border:1px solid rgba(255,255,255,.7);
+  background:rgba(255,255,255,.35);
+  overflow:hidden;
+}
+.form-embed iframe{width:100%; height:100%; border:none; display:block;}
+.form-fallback{
+  display:inline-block; margin-top:14px;
+  font-family:var(--font-body); font-size:12px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--ink); border-bottom:1px solid var(--taupe);
+  padding-bottom:2px;
+}
+.closing-script{font-family:var(--font-script); font-size:34px; color:var(--ink); margin-top:8px;}
+
+@media (max-width:360px){
+  .names{font-size:28px;}
+  .date-stack .day{font-size:44px;}
+  .display-script{font-size:32px;}
+}
+</style>
+</head>
+<body>
+
+<div class="silk-bg" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="sheen"></div>
+</div>
+
+<div class="phone-shell" id="scroller">
+
+  <!-- 1: COVER -->
+  <section class="panel" id="s1">
+    <div class="card">
+      <div class="reveal eyebrow">Вы получили</div>
+      <div class="reveal display-script">Приглашение!</div>
+      <div class="reveal cover-heart">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 84C50 84 12 60 12 34C12 18 24 8 38 8C46 8 50 14 50 14C50 14 54 8 62 8C76 8 88 18 88 34C88 60 50 84 50 84Z" stroke="#b99b6b" stroke-width="1.3"/>
+          <path d="M32 30c4 0 4 6 8 6s4-6 8-6 4 6 8 6 4-6 8-6" stroke="#b99b6b" stroke-width="1" opacity=".7"/>
+          <path d="M30 42c4 0 4 5 8 5s4-5 8-5 4 5 8 5 4-5 8-5" stroke="#b99b6b" stroke-width="1" opacity=".55"/>
+          <path d="M34 54c3 0 3 4 6 4s3-4 6-4 3 4 6 4 3-4 6-4" stroke="#b99b6b" stroke-width="1" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="reveal tap-hint" id="tapHint">нажмите, чтобы открыть приглашение</div>
+    </div>
+  </section>
+
+  <!-- 2: НАЗВАНИЕ / ИМЕНА / ДАТА -->
+  <section class="panel" id="s2">
+    <div class="card">
+      <div class="reveal eyebrow">Приглашение на свадьбу</div>
+      <div class="reveal names">Денис<span class="amp">&amp;</span>Елена</div>
+      <div class="reveal hairline"></div>
+      <div class="reveal date-stack">
+        <div class="day">20</div>
+        <div class="month">августа</div>
+        <div class="year">2026</div>
+      </div>
+      <div class="reveal chevrons">
+        <svg viewBox="0 0 24 12"><path d="M2 2l10 8 10-8" stroke="#b99b6b" stroke-width="1.4" fill="none"/></svg>
+        <svg viewBox="0 0 24 12"><path d="M2 2l10 8 10-8" stroke="#b99b6b" stroke-width="1.4" fill="none"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: ФОТО + РОДНЫЕ И БЛИЗКИЕ -->
+  <section class="panel" id="s3">
+    <div class="card">
+      <div class="reveal photo-frame">
+        <img src="__COUPLE_B64__" alt="Денис и Елена">
+      </div>
+      <div class="reveal eyebrow">Родные и близкие!</div>
+      <div class="reveal display-script">Мы женимся</div>
+    </div>
+  </section>
+
+  <!-- divider monogram -->
+  <div class="panel divider-panel">
+    <div class="monogram-wrap">
+      <div class="line"></div>
+      <div class="monogram"><span class="d">Д</span><span class="e">е</span></div>
+      <div class="line"></div>
+    </div>
+  </div>
+
+  <!-- 4: ТЕКСТ "МЫ ЖЕНИМСЯ" -->
+  <section class="panel" id="s4">
+    <div class="card">
+      <div class="reveal body-text">
+        Самое волшебное время для нас — это сейчас, когда в нашей жизни зажглась безграничная любовь.
+        Вместе мы решили сделать следующий шаг и обещать друг другу вечную привязанность нашими сердцами.
+      </div>
+      <div class="reveal hairline"></div>
+      <div class="reveal display-caps" style="font-size:22px;">20 августа 2026</div>
+      <div class="reveal hairline"></div>
+      <div class="reveal body-text">
+        Мы надеемся, что вы разделите с нами этот прекрасный день и сделаете его ещё особеннее.
+      </div>
+    </div>
+  </section>
+
+  <!-- 5: ЛОКАЦИЯ -->
+  <section class="panel" id="s5">
+    <div class="card">
+      <div class="reveal eyebrow">Локация</div>
+      <div class="reveal display-script">Место проведения</div>
+      <div class="reveal body-text" style="margin:14px 0 18px;">
+        Выездная церемония и праздничный банкет будут проходить в Геокуполе Edwin Group
+      </div>
+      <div class="reveal photo-frame" style="margin-bottom:8px;">
+        <img src="__LOCATION_B64__" alt="Геокупол Edwin Group">
+      </div>
+      <div class="reveal address">Лазурная ул., 23Б, Владивосток</div>
+      <div class="reveal map-buttons">
+        <a class="map-btn" target="_blank" rel="noopener" href="https://yandex.ru/maps/?text=%D0%9B%D0%B0%D0%B7%D1%83%D1%80%D0%BD%D0%B0%D1%8F%20%D1%83%D0%BB.%2C%2023%D0%91%2C%20%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D0%BA">Яндекс.Карты</a>
+        <a class="map-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=%D0%9B%D0%B0%D0%B7%D1%83%D1%80%D0%BD%D0%B0%D1%8F%20%D1%83%D0%BB.%2023%D0%91%20%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D0%BA">Google Maps</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6: ВРЕМЯ / ПРОГРАММА ДНЯ -->
+  <section class="panel" id="s6">
+    <div class="card">
+      <div class="reveal eyebrow">Время</div>
+      <div class="reveal display-script">Программа дня</div>
+      <div class="reveal schedule">
+        <div class="schedule-row">
+          <div class="schedule-time">18:00</div>
+          <div>
+            <div class="schedule-label">Сбор гостей</div>
+            <div class="schedule-desc">Встречаемся, наслаждаемся фуршетом, настраиваемся на весёлую свадьбу.</div>
+          </div>
+        </div>
+        <div class="schedule-row">
+          <div class="schedule-time">18:30</div>
+          <div>
+            <div class="schedule-label">Церемония</div>
+            <div class="schedule-desc">Немного радостных, трогательных формальностей.</div>
+          </div>
+        </div>
+        <div class="schedule-row">
+          <div class="schedule-time">19:00</div>
+          <div>
+            <div class="schedule-label">Банкет</div>
+            <div class="schedule-desc">Время вкусной еды, музыки, приятных пожеланий и танцев.</div>
+          </div>
+        </div>
+        <div class="schedule-row">
+          <div class="schedule-time">01:00</div>
+          <div>
+            <div class="schedule-label">Завершение вечера</div>
+            <div class="schedule-desc">Проводим этот незабываемый день вместе с вами.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- divider monogram -->
+  <div class="panel divider-panel">
+    <div class="monogram-wrap">
+      <div class="line"></div>
+      <div class="monogram"><span class="d">Д</span><span class="e">е</span></div>
+      <div class="line"></div>
+    </div>
+  </div>
+
+  <!-- 7: DRESS CODE -->
+  <section class="panel" id="s7">
+    <div class="card">
+      <div class="reveal eyebrow">Dress</div>
+      <div class="reveal display-script">Code</div>
+      <div class="reveal body-text" style="margin-top:14px;">
+        Мы очень ждём и готовимся к нашему незабываемому дню! Поддержите нас Вашими улыбками и объятиями,
+        а также красивыми нарядами в палитре мероприятия! Также просим прихватить с собой чёрные солнцезащитные
+        очки для фото и видео!
+      </div>
+      <div class="reveal swatch"></div>
+
+      <div class="reveal mood-block">
+        <div class="mood-title">Женские образы</div>
+        <div class="mood-frame women">
+          <img src="__WOMEN_B64__" alt="Женские образы">
+          <div class="accent"><img src="__DRESS_B64__" alt="Чёрное платье"></div>
+        </div>
+      </div>
+
+      <div class="reveal mood-block" style="margin-top:8px;">
+        <div class="mood-title">Мужские образы</div>
+        <div class="mood-frame">
+          <img src="__MEN_B64__" alt="Мужские образы">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8: ПОДСКАЗКА -->
+  <section class="panel" id="s8">
+    <div class="card">
+      <div class="reveal display-script">Подсказка</div>
+      <div class="reveal hint-block">
+        <div class="hint-item">
+          <div class="hint-head">Мы решили…</div>
+        </div>
+        <div class="hint-item">
+          <div class="hint-head">Что дарить</div>
+          <div class="body-text">
+            Ваша улыбка и хорошее настроение — главное для нас в этот вечер! Если вы захотите сделать нам
+            ценный и нужный подарок, мы будем очень благодарны за вклад в бюджет нашей молодой семьи.
+          </div>
+        </div>
+        <div class="hint-item">
+          <div class="hint-head">«Горько»</div>
+          <div class="body-text">
+            На нашем празднике собрались люди разных возрастов и взглядов, и нам бы очень хотелось, чтобы каждый
+            чувствовал себя абсолютно комфортно. Мы решили отойти от традиции кричать «Горько», чтобы не нарушать
+            уютную атмосферу вечера.
+          </div>
+        </div>
+        <div class="hint-item">
+          <div class="hint-head">18+</div>
+          <div class="body-text">
+            Мы очень хотим, чтобы вы могли полностью расслабиться, никуда не спешить и сполна насладиться этим
+            вечером. Именно поэтому мы приняли решение сделать нашу свадьбу событием только для взрослых.
+            Пусть этот день станет для вас романтичным выходным без родительских забот!
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9: ТАЙМЕР -->
+  <section class="panel" id="s9">
+    <div class="card">
+      <div class="reveal countdown-illustration">
+        <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="42" cy="30" r="16" stroke="#b99b6b" stroke-width="1.2"/>
+          <circle cx="70" cy="30" r="16" stroke="#b99b6b" stroke-width="1.2"/>
+          <path d="M20 46c8-10 20-14 40-14s32 4 40 14" stroke="#b99b6b" stroke-width="1" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="reveal body-text" style="letter-spacing:.05em; text-transform:uppercase; font-size:13px;">Мы станем семьёй через:</div>
+      <div class="reveal countdown" id="countdown">
+        <div class="count-box"><div class="count-num" id="cd-days">00</div><div class="count-lbl">Дней</div></div>
+        <div class="count-box"><div class="count-num" id="cd-hours">00</div><div class="count-lbl">Часов</div></div>
+        <div class="count-box"><div class="count-num" id="cd-mins">00</div><div class="count-lbl">Минут</div></div>
+        <div class="count-box"><div class="count-num" id="cd-secs">00</div><div class="count-lbl">Секунд</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10: АНКЕТА -->
+  <section class="panel" id="s10">
+    <div class="card">
+      <div class="reveal eyebrow">Анкета</div>
+      <div class="reveal display-script">Анкета гостя</div>
+      <div class="reveal body-text rsvp-note">
+        Будем очень признательны, если вы подтвердите своё присутствие до 15 июля.
+      </div>
+      <div class="reveal form-embed">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdsq3jWcumGlsCA_S-WeGRusXoxRx8IN81FzhqfpBlVTJj0Wg/viewform?embedded=true" loading="lazy">Загрузка…</iframe>
+      </div>
+      <a class="reveal form-fallback" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSdsq3jWcumGlsCA_S-WeGRusXoxRx8IN81FzhqfpBlVTJj0Wg/viewform?usp=publish-editor">Открыть анкету в новой вкладке ↗</a>
+      <div class="reveal hairline" style="margin-top:22px;"></div>
+      <div class="reveal eyebrow">С нетерпением</div>
+      <div class="reveal closing-script">ждём вас</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// ---- Fade in page ----
+window.addEventListener('load', function(){
+  document.body.classList.add('loaded');
+});
+
+// ---- Tap hint scrolls to next section ----
+document.getElementById('tapHint').addEventListener('click', function(){
+  document.getElementById('s2').scrollIntoView({behavior:'smooth'});
+});
+document.getElementById('s1').addEventListener('click', function(){
+  document.getElementById('s2').scrollIntoView({behavior:'smooth'});
+});
+
+// ---- Scroll reveal ----
+const panels = document.querySelectorAll('.panel');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in-view');
+    }
+  });
+}, {threshold:.35});
+panels.forEach(p=>io.observe(p));
+
+// ---- Countdown ----
+const weddingDate = new Date(2026, 7, 20, 18, 0, 0).getTime(); // 20 августа 2026, 18:00
+function tick(){
+  const now = Date.now();
+  let diff = weddingDate - now;
+  if(diff < 0) diff = 0;
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff / (1000*60*60)) % 24);
+  const mins = Math.floor((diff / (1000*60)) % 60);
+  const secs = Math.floor((diff / 1000) % 60);
+  const pad = n => String(n).padStart(2,'0');
+  document.getElementById('cd-days').textContent = pad(days);
+  document.getElementById('cd-hours').textContent = pad(hours);
+  document.getElementById('cd-mins').textContent = pad(mins);
+  document.getElementById('cd-secs').textContent = pad(secs);
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
