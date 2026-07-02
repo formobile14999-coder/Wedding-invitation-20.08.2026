@@ -123,7 +123,7 @@
             font-size: 3.4rem;
             line-height: 1.1;
             margin: 10px 0;
-            color: #f5e6b3;
+            color: #7D7066;
         }
 
         .f-gothic {
@@ -135,24 +135,30 @@
         }
 
         .title-large {
-            font-size: 2.2rem;
-            letter-spacing: 0.2em;
+            font-size: 2.7rem;
+            letter-spacing: 0.18em;
             margin-bottom: 10px;
         }
 
         .names-3-rows {
-            font-size: 2.4rem;
+            font-size: 3.6rem;
             font-weight: bold;
-            line-height: 1.2;
+            line-height: 1.15;
             margin: 25px 0;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
+        }
+
+        .names-3-rows span:nth-child(1),
+        .names-3-rows span:nth-child(3) {
+            color: #8B6C4F;
         }
 
         .names-3-rows span:nth-child(2) {
-            font-size: 1.8rem;
-            opacity: 0.8;
+            font-size: 2.2rem;
+            color: #f5e6b3;
+            opacity: 1;
         }
 
         .date-3-rows {
@@ -161,10 +167,11 @@
             gap: 4px;
             font-size: 1.5rem;
             margin: 20px 0;
+            color: #4A2F1B;
         }
 
         .date-day-large {
-            font-size: 3.2rem;
+            font-size: 1.6rem;
             font-weight: bold;
             border-top: 1px solid rgba(255, 255, 255, 0.4);
             border-bottom: 1px solid rgba(255, 255, 255, 0.4);
@@ -210,9 +217,9 @@
             font-family: 'Ceremonious One', cursive;
             font-size: 4.2rem;
             position: absolute;
-            left: 45px;
-            top: 14px;
-            color: #f5e6b3;
+            left: 33px;
+            top: 26px;
+            color: #615345;
             z-index: 2;
         }
 
@@ -240,6 +247,20 @@
             overflow: hidden;
         }
 
+        .photo-container.photo-large {
+            height: 320px;
+        }
+
+        .photo-container.photo-fit {
+            height: auto;
+            aspect-ratio: 4 / 5;
+        }
+
+        .photo-container.photo-fit .photo-img {
+            position: static;
+            object-fit: contain;
+        }
+
         .photo-label {
             position: absolute;
             bottom: 8px;
@@ -262,19 +283,31 @@
         }
 
         .timeline-item {
-            margin-bottom: 20px;
-            position: relative;
-            padding-left: 35px;
-            border-left: 1px solid rgba(255,255,255,0.25);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 26px;
+        }
+
+        .timeline-time-col {
+            width: 33%;
+            flex-shrink: 0;
+            text-align: center;
         }
 
         .timeline-time {
             font-family: 'Ceremonious One', cursive;
-            font-size: 2.4rem;
-            color: #f5e6b3;
-            position: absolute;
-            left: -15px;
-            top: -12px;
+            font-size: 2.6rem;
+            line-height: 1;
+            color: #7D7066;
+            display: block;
+        }
+
+        .timeline-content {
+            flex: 1;
+            text-align: left;
+            padding-left: 14px;
+            border-left: 1px solid rgba(255,255,255,0.25);
         }
 
         .timeline-title {
@@ -304,6 +337,19 @@
         .box-2 { width: 50%; height: 130px; right: 0; top: 40px; z-index: 1; }
         .box-3 { width: 48%; height: 120px; left: 10px; bottom: 10px; z-index: 3; }
         .box-4 { width: 52%; height: 120px; right: 0; bottom: 20px; z-index: 2; }
+
+        /* Collage of 4 photos (block 7: women / men looks) */
+        .collage-container-4 {
+            width: 100%;
+            position: relative;
+            height: 340px;
+            margin-top: 15px;
+        }
+
+        .box-q1 { width: 54%; height: 150px; left: 0; top: 0; z-index: 2; }
+        .box-q2 { width: 42%; height: 125px; right: 0; top: 25px; z-index: 1; }
+        .box-q3 { width: 44%; height: 140px; left: 8px; top: 175px; z-index: 3; }
+        .box-q4 { width: 50%; height: 150px; right: 0; top: 190px; z-index: 2; }
 
         /* Countdown */
         .timer-grid {
@@ -383,135 +429,7 @@
     	    position: relative;
             z-index: 2
 	}
-html, body {
-    background-color: transparent !important;
-}
-.video-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: 1 !important;
-    pointer-events: none;
-}
-body > *:not(.video-bg) {
-    position: relative;
-    z-index: 2 !important;
-}
 
-.f-ceremonious, [style*="Ceremonious One"] {
-    color: #7D7066 !important;
-}
-
-.countdown-container {
-    display: flex;
-    justify-content: space-around;
-    max-width: 33.33%;
-    margin: 20px auto;
-}
-.countdown-item {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.dress-code-title {
-    position: relative;
-    height: 100px;
-    margin-bottom: 20px;
-}
-.dress-title {
-    font-size: 4rem;
-    position: absolute;
-    left: 10%;
-    top: 0;
-    z-index: 1;
-}
-.code-title {
-    font-size: 3.5rem;
-    position: absolute;
-    left: 25%;
-    top: 35px;
-    z-index: 2;
-}
-
-.dress-collage {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 20px;
-}
-.collage-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-.collage-group img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-.full-width-photo {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: contain !important;
-    margin: 15px 0;
-}
-
-.main-heading {
-    font-size: 2rem !important;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.names-accent {
-    font-size: 3.5rem !important;
-    text-align: center;
-    font-family: 'Cormorant SC', serif;
-}
-.name-brown {
-    color: #615345;
-}
-.ampersand-beige {
-    color: #D2B48C;
-    font-family: 'Ceremonious One', cursive;
-}
-
-.date-block {
-    color: #4A3E3D !important;
-    text-align: center;
-}
-.month-small {
-    font-size: 0.5em !important;
-}
-
-.initials-wrapper {
-    position: relative;
-    display: inline-block;
-    height: 1.5em;
-    width: 1.5em;
-}
-.letter-d {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 1;
-}
-.letter-e {
-    position: absolute;
-    left: 0.4em;
-    top: 0.4em;
-    z-index: 2;
-    color: #615345 !important;
-}
-
-.single-line-text {
-    white-space: nowrap;
-    font-size: 0.9rem;
-    text-align: center;
-}
     </style>
 </head>
 <body>
@@ -555,11 +473,11 @@ body > *:not(.video-bg) {
 
         <!-- БЛОК 3 -->
         <div class="glass-block">
-            <div class="photo-container">
+            <div class="photo-container photo-large">
                 <img src="photo13.jpeg" alt="photo13.jpeg" class="photo-img">
                 <div class="photo-label">photo13.jpeg</div>
             </div>
-            <div class="f-cormorant title-large" style="font-size: 1.6rem; margin-top: 10px;">РОДНЫЕ И БЛИЗКИЕ!</div>
+            <div class="f-cormorant title-large" style="font-size: 2rem; margin-top: 10px;">РОДНЫЕ И БЛИЗКИЕ!</div>
             <div class="f-ceremonious">Мы женимся</div>
         </div>
 
@@ -581,12 +499,12 @@ body > *:not(.video-bg) {
 
         <!-- БЛОК 5 -->
         <div class="glass-block">
-            <div class="f-cormorant title-large" style="font-size: 1.6rem;">Локация</div>
-            <div class="f-ceremonious">Место проведения</div>
+            <div class="f-cormorant title-large" style="font-size: 2rem;">Локация</div>
+            <div class="f-ceremonious" style="font-size: 1.7rem; white-space: nowrap;">Место проведения</div>
             
             <p class="f-gothic" style="margin: 10px 0; font-weight: bold;">Выездная церемония и банкет будут проходить в Геокуполе Edwin Group</p>
             
-            <div class="photo-container">
+            <div class="photo-container photo-large">
                 <img src="photo14.jpeg" alt="photo14.jpeg" class="photo-img">
                 <div class="photo-label">photo14.jpeg</div>
             </div>
@@ -602,24 +520,32 @@ body > *:not(.video-bg) {
 
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-time">18:00</div>
-                    <div class="f-cormorant timeline-title" style="font-weight: bold;">сбор гостей</div>
-                    <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Приветственные коктейли, легкие закуски и долгожданные встречи перед началом.</div>
+                    <div class="timeline-time-col"><span class="timeline-time">18:00</span></div>
+                    <div class="timeline-content">
+                        <div class="f-cormorant timeline-title" style="font-weight: bold;">сбор гостей</div>
+                        <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Приветственные коктейли, легкие закуски и долгожданные встречи перед началом.</div>
+                    </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-time">18:30</div>
-                    <div class="f-cormorant timeline-title" style="font-weight: bold;">Церемония</div>
-                    <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Самый трогательный момент нашего дня, обмен клятвами и кольцами.</div>
+                    <div class="timeline-time-col"><span class="timeline-time">18:30</span></div>
+                    <div class="timeline-content">
+                        <div class="f-cormorant timeline-title" style="font-weight: bold;">Церемония</div>
+                        <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Самый трогательный момент нашего дня, обмен клятвами и кольцами.</div>
+                    </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-time">19:00</div>
-                    <div class="f-cormorant timeline-title" style="font-weight: bold;">Банкет</div>
-                    <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Праздничный ужин, поздравления, танцы и веселье в уютной атмосфере.</div>
+                    <div class="timeline-time-col"><span class="timeline-time">19:00</span></div>
+                    <div class="timeline-content">
+                        <div class="f-cormorant timeline-title" style="font-weight: bold;">Банкет</div>
+                        <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Праздничный ужин, поздравления, танцы и веселье в уютной атмосфере.</div>
+                    </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-time">01:00</div>
-                    <div class="f-cormorant timeline-title" style="font-weight: bold;">Завершение вечера</div>
-                    <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Прекрасный финал нашего незабываемого праздника.</div>
+                    <div class="timeline-time-col"><span class="timeline-time">01:00</span></div>
+                    <div class="timeline-content">
+                        <div class="f-cormorant timeline-title" style="font-weight: bold;">Завершение вечера</div>
+                        <div class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Прекрасный финал нашего незабываемого праздника.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -634,9 +560,9 @@ body > *:not(.video-bg) {
 
         <!-- БЛОК 7 -->
         <div class="glass-block auto-height">
-            <div>
-                <span class="f-cormorant title-large" style="font-size: 1.8rem; vertical-align: middle;">DRESS</span>
-                <span class="f-ceremonious" style="vertical-align: middle; margin-left: 5px;">Code</span>
+            <div style="position: relative; display: inline-block; text-align: left;">
+                <div class="f-cormorant title-large" style="font-size: 2.4rem; margin-bottom: 0; white-space: nowrap;">DRESS</div>
+                <div class="f-ceremonious" style="font-size: 2.6rem; margin: -16px 0 0 45px; position: relative; z-index: 2;">Code</div>
             </div>
             
             <p class="f-gothic" style="margin-top: 10px; font-size: 0.9rem; opacity: 0.9;">
@@ -646,26 +572,42 @@ body > *:not(.video-bg) {
             <div class="color-dot"></div>
 
             <div class="f-cormorant" style="font-size: 0.9rem; letter-spacing: 0.1em; width: 100%; text-align: left; margin-top: 15px;">ЖЕНСКИЕ ОБРАЗЫ</div>
-            <div class="collage-container">
-                <div class="collage-img-box box-1">
+            <div class="collage-container-4">
+                <div class="collage-img-box box-q1">
                     <img src="photo16.jpeg" alt="photo16.jpeg" class="photo-img">
                     <div class="photo-label">photo16.jpeg</div>
                 </div>
-                <div class="collage-img-box box-2">
+                <div class="collage-img-box box-q2">
                     <img src="photo17.jpeg" alt="photo17.jpeg" class="photo-img">
                     <div class="photo-label">photo17.jpeg</div>
+                </div>
+                <div class="collage-img-box box-q3">
+                    <img src="photo18.jpeg" alt="photo18.jpeg" class="photo-img">
+                    <div class="photo-label">photo18.jpeg</div>
+                </div>
+                <div class="collage-img-box box-q4">
+                    <img src="photo19.jpeg" alt="photo19.jpeg" class="photo-img">
+                    <div class="photo-label">photo19.jpeg</div>
                 </div>
             </div>
 
             <div class="f-cormorant" style="font-size: 0.9rem; letter-spacing: 0.1em; width: 100%; text-align: right; margin-top: 15px;">МУЖСКИЕ ОБРАЗЫ</div>
-            <div class="collage-container" style="height: 200px;">
-                <div class="collage-img-box box-3">
-                    <img src="photo18.jpeg" alt="photo18.jpeg" class="photo-img">
-                    <div class="photo-label">photo18.jpeg</div>
+            <div class="collage-container-4">
+                <div class="collage-img-box box-q1">
+                    <img src="photo20.jpeg" alt="photo20.jpeg" class="photo-img">
+                    <div class="photo-label">photo20.jpeg</div>
                 </div>
-                <div class="collage-img-box box-4">
-                    <img src="photo19.jpeg" alt="photo19.jpeg" class="photo-img">
-                    <div class="photo-label">photo19.jpeg</div>
+                <div class="collage-img-box box-q2">
+                    <img src="photo21.jpeg" alt="photo21.jpeg" class="photo-img">
+                    <div class="photo-label">photo21.jpeg</div>
+                </div>
+                <div class="collage-img-box box-q3">
+                    <img src="photo22.jpeg" alt="photo22.jpeg" class="photo-img">
+                    <div class="photo-label">photo22.jpeg</div>
+                </div>
+                <div class="collage-img-box box-q4">
+                    <img src="photo23.jpeg" alt="photo23.jpeg" class="photo-img">
+                    <div class="photo-label">photo23.jpeg</div>
                 </div>
             </div>
         </div>
@@ -698,8 +640,8 @@ body > *:not(.video-bg) {
         </div>
 
         <!-- БЛОК 9 -->
-        <div class="glass-block">
-            <div class="photo-container" style="height: 140px;">
+        <div class="glass-block auto-height">
+            <div class="photo-container photo-fit">
                 <img src="photo29.jpeg" alt="photo29.jpeg" class="photo-img">
                 <div class="photo-label">photo29.jpeg</div>
             </div>
