@@ -887,11 +887,19 @@
             statusEl.textContent = '';
 
             const formData = new FormData(form);
+            formData.append('timestamp', new Date().toISOString());
 
-            fetch(RSVP_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
+            // Отправляем как GET с параметрами в URL: при POST Google Apps Script
+            // делает 302-редирект, из-за которого браузер превращает POST в GET
+            // и теряет тело запроса. GET-запрос этой проблеме не подвержен.
+            const params = new URLSearchParams();
+            formData.forEach(function(value, key) {
+                params.append(key, value);
+            });
+
+            fetch(RSVP_SCRIPT_URL + '?' + params.toString(), {
+                method: 'GET',
+                mode: 'no-cors'
             })
                 .then(function() {
                     statusEl.style.color = '#f5e6b3';
