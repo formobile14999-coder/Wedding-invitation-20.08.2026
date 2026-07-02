@@ -81,9 +81,9 @@
         .glass-block {
             width: 100%;
             aspect-ratio: 9 / 14.5;
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 1px;
             padding: 30px 20px;
@@ -104,6 +104,30 @@
         .glass-block.auto-height {
             aspect-ratio: auto;
             min-height: 80vh;
+        }
+
+        .glass-block.photo-full-block {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .photo-bg-full {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .photo-overlay-bottom {
+            position: relative;
+            z-index: 2;
+            margin-top: auto;
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            padding: 18px 15px;
         }
 
         .glass-block.visible {
@@ -141,23 +165,24 @@
         }
 
         .names-3-rows {
-            font-size: 3.6rem;
+            font-size: 3.96rem;
             font-weight: bold;
             line-height: 1.15;
-            margin: 25px 0;
+            margin: 55px 0 25px 0;
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 8px;
         }
 
         .names-3-rows span:nth-child(1),
         .names-3-rows span:nth-child(3) {
-            color: #8B6C4F;
+            color: #120A05;
         }
 
         .names-3-rows span:nth-child(2) {
-            font-size: 2.2rem;
-            color: #f5e6b3;
+            font-size: 3.96rem;
+            color: #9A8C7E;
             opacity: 1;
         }
 
@@ -297,7 +322,7 @@
 
         .timeline-time {
             font-family: 'Ceremonious One', cursive;
-            font-size: 2.6rem;
+            font-size: 3.9rem;
             line-height: 1;
             color: #7D7066;
             display: block;
@@ -342,14 +367,22 @@
         .collage-container-4 {
             width: 100%;
             position: relative;
-            height: 340px;
+            height: 430px;
             margin-top: 15px;
         }
 
-        .box-q1 { width: 54%; height: 150px; left: 0; top: 0; z-index: 2; }
-        .box-q2 { width: 42%; height: 125px; right: 0; top: 25px; z-index: 1; }
-        .box-q3 { width: 44%; height: 140px; left: 8px; top: 175px; z-index: 3; }
-        .box-q4 { width: 50%; height: 150px; right: 0; top: 190px; z-index: 2; }
+        .collage-img-box.box-q1,
+        .collage-img-box.box-q2,
+        .collage-img-box.box-q3,
+        .collage-img-box.box-q4 {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+            border: 3px solid rgba(255,255,255,0.5);
+        }
+
+        .box-q1 { width: 62%; height: 165px; left: 0; top: 0; z-index: 2; transform: rotate(-3deg); }
+        .box-q2 { width: 56%; height: 155px; right: 0; top: 55px; z-index: 3; transform: rotate(2deg); }
+        .box-q3 { width: 58%; height: 160px; left: 18px; top: 190px; z-index: 1; transform: rotate(3deg); }
+        .box-q4 { width: 56%; height: 155px; right: 8px; top: 250px; z-index: 4; transform: rotate(-2deg); }
 
         /* Countdown */
         .timer-grid {
@@ -411,7 +444,7 @@
         }
 
         .icon-heart-img {
-            width: 130px;
+            width: 65px;
             height: auto;
             margin-top: 15px;
             filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
@@ -499,8 +532,8 @@
 
         <!-- БЛОК 5 -->
         <div class="glass-block">
-            <div class="f-cormorant title-large" style="font-size: 2rem;">Локация</div>
-            <div class="f-ceremonious" style="font-size: 1.7rem; white-space: nowrap;">Место проведения</div>
+            <div class="f-cormorant title-large" style="font-size: 2rem; margin-bottom: 2px;">Локация</div>
+            <div class="f-ceremonious" style="font-size: 4.25rem; line-height: 1.05; margin-top: 0;">Место проведения</div>
             
             <p class="f-gothic" style="margin: 10px 0; font-weight: bold;">Выездная церемония и банкет будут проходить в Геокуполе Edwin Group</p>
             
@@ -640,38 +673,37 @@
         </div>
 
         <!-- БЛОК 9 -->
-        <div class="glass-block auto-height">
-            <div class="photo-container photo-fit">
-                <img src="photo29.jpeg" alt="photo29.jpeg" class="photo-img">
-                <div class="photo-label">photo29.jpeg</div>
-            </div>
-            
-            <div class="f-gothic" style="font-size: 1.1rem; font-weight: bold; margin-top: 10px;">Мы станем семьей через:</div>
-            
-            <div class="timer-grid" id="countdown-timer">
-                <div class="timer-cell">
-                    <span class="timer-num" id="days">00</span>
-                    <span class="timer-text">Дней</span>
-                </div>
-                <div class="timer-cell">
-                    <span class="timer-num" id="hours">00</span>
-                    <span class="timer-text">Часов</span>
-                </div>
-                <div class="timer-cell">
-                    <span class="timer-num" id="minutes">00</span>
-                    <span class="timer-text">Минут</span>
-                </div>
-                <div class="timer-cell">
-                    <span class="timer-num" id="seconds">00</span>
-                    <span class="timer-text">Секунд</span>
+        <div class="glass-block auto-height photo-full-block">
+            <img src="photo29.jpeg" alt="photo29.jpeg" class="photo-bg-full">
+
+            <div class="photo-overlay-bottom">
+                <div class="f-gothic" style="font-size: 1.1rem; font-weight: bold; margin-top: 0;">Мы станем семьей через:</div>
+
+                <div class="timer-grid" id="countdown-timer">
+                    <div class="timer-cell">
+                        <span class="timer-num" id="days">00</span>
+                        <span class="timer-text">Дней</span>
+                    </div>
+                    <div class="timer-cell">
+                        <span class="timer-num" id="hours">00</span>
+                        <span class="timer-text">Часов</span>
+                    </div>
+                    <div class="timer-cell">
+                        <span class="timer-num" id="minutes">00</span>
+                        <span class="timer-text">Минут</span>
+                    </div>
+                    <div class="timer-cell">
+                        <span class="timer-num" id="seconds">00</span>
+                        <span class="timer-text">Секунд</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- БЛОК 10 -->
         <div class="glass-block auto-height">
-            <div class="f-cormorant title-large">АНКЕТА</div>
-            <div class="f-ceremonious">Анкета гостя</div>
+            <div class="f-cormorant title-large" style="margin-bottom: 2px;">АНКЕТА</div>
+            <div class="f-ceremonious" style="margin-top: 0;">Анкета гостя</div>
             
             <p class="f-gothic" style="font-size: 0.9rem; margin-bottom: 10px;">Будем очень признательны, если вы подтвердите своё присутствие до 15 июля</p>
             
@@ -679,8 +711,8 @@
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdsq3jWcumGlsCA_S-WeGRusXoxRx8IN81FzhqfpBlVTJj0Wg/viewform?embedded=true" style="width:100%; height:100%; border:none;">Загрузка...</iframe>
             </div>
 
-            <div class="f-cormorant title-large" style="margin-top: 30px; font-size: 1.5rem;">С НЕТЕРПЕНИЕМ</div>
-            <div class="f-ceremonious">Ждём вас</div>
+            <div class="f-cormorant title-large" style="margin-top: 30px; font-size: 1.5rem; margin-bottom: 2px;">С НЕТЕРПЕНИЕМ</div>
+            <div class="f-ceremonious" style="margin-top: 0;">Ждём вас</div>
         </div>
 
     </div>
