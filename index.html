@@ -33,7 +33,8 @@
 
         body, html {
             width: 100%;
-            background-color: #0b0b0b;
+            height: 100%;
+            background-color: transparent;
             font-family: 'Century Gothic', sans-serif;
             color: #ffffff;
             scroll-behavior: smooth;
@@ -42,13 +43,13 @@
         /* Background bg-video */
         .video-bg {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 0%;
+            left: 0%;
             min-width: 100%;
             min-height: 100%;
             width: auto;
             height: auto;
-            z-index: -100;
+            z-index: 1;pointer-events: none;
             transform: translate(-50%, -50%);
             object-fit: cover;
             filter: brightness(0.65);
