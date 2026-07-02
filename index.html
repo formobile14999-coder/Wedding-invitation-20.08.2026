@@ -204,6 +204,46 @@
             padding: 2px 20px;
         }
 
+        /* Fade-in words (block 2) */
+        .fade-word {
+            opacity: 0;
+        }
+
+        .glass-block.visible .fade-word {
+            animation: fadeInWord 0.7s ease forwards;
+        }
+
+        @keyframes fadeInWord {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-word-denis {
+            opacity: 0;
+            transform: translateY(22px);
+        }
+
+        .glass-block.visible .fade-word-denis {
+            animation: fadeInWordDenis 0.7s ease forwards;
+        }
+
+        @keyframes fadeInWordDenis {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(10px);
+            }
+        }
+
         /* Initials Overlap */
         .initials-divider {
             width: 100%;
@@ -285,20 +325,6 @@
         .photo-container.photo-fit .photo-img {
             position: static;
             object-fit: contain;
-        }
-
-        .photo-label {
-            position: absolute;
-            bottom: 8px;
-            right: 12px;
-            font-size: 0.7rem;
-            font-family: 'Century Gothic', sans-serif;
-            background: rgba(0,0,0,0.5);
-            padding: 2px 6px;
-            border-radius: 2px;
-            opacity: 0.8;
-            letter-spacing: 0.05em;
-            z-index: 5;
         }
 
         /* Timeline Program */
@@ -440,6 +466,115 @@
             border: 1px solid rgba(255,255,255,0.25);
         }
 
+        /* RSVP form (Apps Script) */
+        .rsvp-form {
+            width: 100%;
+            text-align: left;
+            margin-top: 18px;
+        }
+
+        .rsvp-field {
+            margin-bottom: 18px;
+        }
+
+        .rsvp-label {
+            display: block;
+            font-family: 'Century Gothic', sans-serif;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .rsvp-input {
+            width: 100%;
+            padding: 10px 2px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.35);
+            color: #fff;
+            font-family: 'Century Gothic', sans-serif;
+            font-weight: 300;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .rsvp-input::placeholder {
+            color: rgba(255,255,255,0.4);
+            font-style: italic;
+        }
+
+        .rsvp-input:focus {
+            border-color: rgba(255,255,255,0.85);
+        }
+
+        .rsvp-radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .rsvp-radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-family: 'Century Gothic', sans-serif;
+            font-weight: 300;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        .rsvp-radio-option input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.6);
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .rsvp-radio-option input[type="radio"]:checked {
+            border-color: #fff;
+        }
+
+        .rsvp-radio-option input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .rsvp-submit {
+            border: none;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .rsvp-submit:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .rsvp-status {
+            margin-top: 14px;
+            font-family: 'Century Gothic', sans-serif;
+            font-size: 0.85rem;
+            text-align: center;
+            min-height: 18px;
+        }
+
         .color-dot {
             width: 45px;
             height: 45px;
@@ -489,21 +624,21 @@
 
         <!-- БЛОК 2 -->
         <div class="glass-block">
-            <div class="f-cormorant" style="font-size: 1.2rem; letter-spacing: 0.2em;">ПРИГЛАШЕНИЕ НА СВАДЬБУ</div>
+            <div class="f-cormorant fade-word" style="font-size: 1.2rem; letter-spacing: 0.2em; animation-delay: 0s;">ПРИГЛАШЕНИЕ НА СВАДЬБУ</div>
             
             <div class="f-cormorant names-3-rows">
-                <span>ДЕНИС</span>
-                <span>&</span>
-                <span>ЕЛЕНА</span>
+                <span class="fade-word-denis" style="animation-delay: 0.15s;">ДЕНИС</span>
+                <span class="fade-word" style="animation-delay: 0.3s;">&</span>
+                <span class="fade-word" style="animation-delay: 0.45s;">ЕЛЕНА</span>
             </div>
             
             <div class="date-3-rows f-cormorant">
-                <div>20</div>
-                <div class="date-day-large">АВГУСТ</div>
-                <div>2026</div>
+                <div class="fade-word" style="animation-delay: 0.6s;">20</div>
+                <div class="date-day-large fade-word" style="animation-delay: 0.7s;">АВГУСТ</div>
+                <div class="fade-word" style="animation-delay: 0.8s;">2026</div>
             </div>
 
-            <svg class="icon-arrow" viewBox="0 0 24 24">
+            <svg class="icon-arrow fade-word" style="animation-delay: 0.95s;" viewBox="0 0 24 24">
                 <path d="M4 8L12 16L20 8" />
                 <path d="M4 2L12 10L20 2" opacity="0.5"/>
             </svg>
@@ -513,7 +648,6 @@
         <div class="glass-block">
             <div class="photo-container photo-large">
                 <img src="photo13.jpeg" alt="photo13.jpeg" class="photo-img">
-                <div class="photo-label">photo13.jpeg</div>
             </div>
             <div class="f-cormorant title-large" style="font-size: 2rem; margin-top: 10px;">РОДНЫЕ И БЛИЗКИЕ!</div>
             <div class="f-ceremonious">Мы женимся</div>
@@ -544,7 +678,6 @@
             
             <div class="photo-container photo-large" style="height: 400px;">
                 <img src="photo14.jpeg" alt="photo14.jpeg" class="photo-img">
-                <div class="photo-label">photo14.jpeg</div>
             </div>
 
             <p class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Адрес: Лазурная ул., 23Б, Владивосток</p>
@@ -613,19 +746,15 @@
             <div class="collage-container-4">
                 <div class="collage-img-box box-q1">
                     <img src="photo16.jpeg" alt="photo16.jpeg" class="photo-img">
-                    <div class="photo-label">photo16.jpeg</div>
                 </div>
                 <div class="collage-img-box box-q2">
                     <img src="photo17.jpeg" alt="photo17.jpeg" class="photo-img">
-                    <div class="photo-label">photo17.jpeg</div>
                 </div>
                 <div class="collage-img-box box-q3">
                     <img src="photo18.jpeg" alt="photo18.jpeg" class="photo-img">
-                    <div class="photo-label">photo18.jpeg</div>
                 </div>
                 <div class="collage-img-box box-q4">
                     <img src="photo19.jpeg" alt="photo19.jpeg" class="photo-img">
-                    <div class="photo-label">photo19.jpeg</div>
                 </div>
             </div>
 
@@ -633,19 +762,15 @@
             <div class="collage-container-4">
                 <div class="collage-img-box box-q1">
                     <img src="photo20.jpeg" alt="photo20.jpeg" class="photo-img">
-                    <div class="photo-label">photo20.jpeg</div>
                 </div>
                 <div class="collage-img-box box-q2">
                     <img src="photo21.jpeg" alt="photo21.jpeg" class="photo-img">
-                    <div class="photo-label">photo21.jpeg</div>
                 </div>
                 <div class="collage-img-box box-q3">
                     <img src="photo22.jpeg" alt="photo22.jpeg" class="photo-img">
-                    <div class="photo-label">photo22.jpeg</div>
                 </div>
                 <div class="collage-img-box box-q4">
                     <img src="photo23.jpeg" alt="photo23.jpeg" class="photo-img">
-                    <div class="photo-label">photo23.jpeg</div>
                 </div>
             </div>
         </div>
@@ -712,9 +837,34 @@
             
             <p class="f-gothic" style="font-size: 0.9rem; margin-bottom: 10px;">Будем очень признательны, если вы подтвердите своё присутствие до 15 июля</p>
             
-            <div class="iframe-box">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdsq3jWcumGlsCA_S-WeGRusXoxRx8IN81FzhqfpBlVTJj0Wg/viewform?embedded=true" style="width:100%; height:100%; border:none;">Загрузка...</iframe>
-            </div>
+            <form class="rsvp-form" id="rsvp-form" onsubmit="submitRSVP(event)">
+                <div class="rsvp-field">
+                    <label class="rsvp-label" for="rsvp-name">Имя и фамилия</label>
+                    <input class="rsvp-input" type="text" id="rsvp-name" name="fullName" required>
+                </div>
+
+                <div class="rsvp-field">
+                    <label class="rsvp-label" for="rsvp-partner">Если Вы будете со своей парой, укажите оба имени</label>
+                    <input class="rsvp-input" type="text" id="rsvp-partner" name="partnerNames" placeholder="Иван Иванов/Мария Иванова">
+                </div>
+
+                <div class="rsvp-field">
+                    <label class="rsvp-label">Подтвердите своё присутствие:</label>
+                    <div class="rsvp-radio-group">
+                        <label class="rsvp-radio-option">
+                            <input type="radio" name="attendance" value="Да, с удовольствием!" required>
+                            <span>Да, с удовольствием!</span>
+                        </label>
+                        <label class="rsvp-radio-option">
+                            <input type="radio" name="attendance" value="К сожалению, не смогу" required>
+                            <span>К сожалению, не смогу</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn rsvp-submit">Отправить</button>
+                <div class="rsvp-status" id="rsvp-status"></div>
+            </form>
 
             <div class="f-cormorant title-large" style="margin-top: 30px; font-size: 1.5rem; margin-bottom: 2px;">С НЕТЕРПЕНИЕМ</div>
             <div class="f-ceremonious" style="margin-top: 0;">Ждём вас</div>
@@ -723,6 +873,40 @@
     </div>
 
     <script>
+        const RSVP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyqcrVrr27WamwL_Ik_dKcBBF4nIsn_pa_V2LxpzrpwUOZTaYpQ2RqsHraMT5kfGp86/exec";
+
+        function submitRSVP(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('.rsvp-submit');
+            const statusEl = document.getElementById('rsvp-status');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+            statusEl.style.color = '#fff';
+            statusEl.textContent = '';
+
+            const formData = new FormData(form);
+
+            fetch(RSVP_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            })
+                .then(function() {
+                    statusEl.style.color = '#f5e6b3';
+                    statusEl.textContent = 'Спасибо! Ваш ответ отправлен.';
+                    submitBtn.textContent = 'Отправлено';
+                    form.reset();
+                })
+                .catch(function() {
+                    statusEl.style.color = '#e0a3a3';
+                    statusEl.textContent = 'Не удалось отправить. Попробуйте ещё раз.';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Отправить';
+                });
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             const blocks = document.querySelectorAll('.glass-block, .initials-divider');
             
