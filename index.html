@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Приглашение на свадьбу Дениса и Елены</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600;1,700&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-family: 'Century Gothic';
@@ -34,7 +37,7 @@
         body, html {
             width: 100%;
             height: 100%;
-            background-color: transparent;
+            background-color: #17130f;
             font-family: 'Century Gothic', sans-serif;
             color: #ffffff;
             scroll-behavior: smooth;
@@ -43,16 +46,20 @@
         /* Background bg-video */
         .video-bg {
             position: fixed;
-            top: 0%;
-            left: 0%;
-            min-width: 110%;
-            min-height: 110%;
-            width: auto;
-            height: auto;
-            z-index: 1;pointer-events: none;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
             object-fit: cover;
             filter: brightness(0.65);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .video-bg.video-ready {
+            opacity: 1;
         }
 
         /* Mobile Wrapper */
@@ -178,6 +185,8 @@
         .names-3-rows span:nth-child(1),
         .names-3-rows span:nth-child(3) {
             color: #120A05;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
         }
 
         .names-3-rows span:nth-child(2) {
@@ -608,7 +617,7 @@
 <body>
 
     <!-- Видеофон -->
-    <video class="video-bg" autoplay loop muted playsinline>
+    <video class="video-bg" autoplay loop muted playsinline preload="auto">
         <source src="bg-video.mp4" type="video/mp4">
     </video>
 
@@ -647,7 +656,7 @@
         <!-- БЛОК 3 -->
         <div class="glass-block">
             <div class="photo-container photo-large">
-                <img src="photo13.jpeg" alt="photo13.jpeg" class="photo-img">
+                <img src="photo13.jpeg" alt="" class="photo-img">
             </div>
             <div class="f-cormorant title-large" style="font-size: 2rem; margin-top: 10px;">РОДНЫЕ И БЛИЗКИЕ!</div>
             <div class="f-ceremonious">Мы женимся</div>
@@ -677,7 +686,7 @@
             <p class="f-gothic" style="margin: 6px 0; font-weight: bold;">Выездная церемония и банкет будут проходить в Геокуполе Edwin Group</p>
             
             <div class="photo-container photo-large" style="height: 400px;">
-                <img src="photo14.jpeg" alt="photo14.jpeg" class="photo-img">
+                <img src="photo14.jpeg" alt="" class="photo-img">
             </div>
 
             <p class="f-gothic" style="font-size: 0.85rem; opacity: 0.8;">Адрес: Лазурная ул., 23Б, Владивосток</p>
@@ -745,32 +754,32 @@
             <div class="f-cormorant" style="font-size: 0.9rem; letter-spacing: 0.1em; width: 100%; text-align: left; margin-top: 15px;">ЖЕНСКИЕ ОБРАЗЫ</div>
             <div class="collage-container-4">
                 <div class="collage-img-box box-q1">
-                    <img src="photo16.jpeg" alt="photo16.jpeg" class="photo-img">
+                    <img src="photo16.jpeg" alt="" class="photo-img">
                 </div>
                 <div class="collage-img-box box-q2">
-                    <img src="photo17.jpeg" alt="photo17.jpeg" class="photo-img">
+                    <img src="photo17.jpeg" alt="" class="photo-img">
                 </div>
                 <div class="collage-img-box box-q3">
-                    <img src="photo18.jpeg" alt="photo18.jpeg" class="photo-img">
+                    <img src="photo18.jpeg" alt="" class="photo-img">
                 </div>
                 <div class="collage-img-box box-q4">
-                    <img src="photo19.jpeg" alt="photo19.jpeg" class="photo-img">
+                    <img src="photo19.jpeg" alt="" class="photo-img">
                 </div>
             </div>
 
             <div class="f-cormorant" style="font-size: 0.9rem; letter-spacing: 0.1em; width: 100%; text-align: right; margin-top: 15px;">МУЖСКИЕ ОБРАЗЫ</div>
             <div class="collage-container-4">
                 <div class="collage-img-box box-q1">
-                    <img src="photo20.jpeg" alt="photo20.jpeg" class="photo-img">
+                    <img src="photo20.jpeg" alt="" class="photo-img">
                 </div>
                 <div class="collage-img-box box-q2">
-                    <img src="photo21.jpeg" alt="photo21.jpeg" class="photo-img">
+                    <img src="photo21.jpeg" alt="" class="photo-img">
                 </div>
                 <div class="collage-img-box box-q3">
-                    <img src="photo22.jpeg" alt="photo22.jpeg" class="photo-img">
+                    <img src="photo22.jpeg" alt="" class="photo-img">
                 </div>
                 <div class="collage-img-box box-q4">
-                    <img src="photo23.jpeg" alt="photo23.jpeg" class="photo-img">
+                    <img src="photo23.jpeg" alt="" class="photo-img">
                 </div>
             </div>
         </div>
@@ -804,7 +813,7 @@
 
         <!-- БЛОК 9 -->
         <div class="glass-block auto-height photo-full-block">
-            <img src="photo29.jpeg" alt="photo29.jpeg" class="photo-bg-full">
+            <img src="photo29.jpeg" alt="" class="photo-bg-full">
 
             <div class="photo-overlay-bottom">
                 <div class="f-gothic" style="font-size: 1.1rem; font-weight: bold; margin-top: 0;">Мы станем семьей через:</div>
@@ -841,11 +850,6 @@
                 <div class="rsvp-field">
                     <label class="rsvp-label" for="rsvp-name">Имя и фамилия</label>
                     <input class="rsvp-input" type="text" id="rsvp-name" name="fullName" required>
-                </div>
-
-                <div class="rsvp-field">
-                    <label class="rsvp-label" for="rsvp-partner">Если Вы будете со своей парой, укажите оба имени</label>
-                    <input class="rsvp-input" type="text" id="rsvp-partner" name="partnerNames" placeholder="Иван Иванов/Мария Иванова">
                 </div>
 
                 <div class="rsvp-field">
@@ -892,12 +896,10 @@
             statusEl.textContent = '';
 
             const fullName = form.querySelector('#rsvp-name').value.trim();
-            const partnerNames = form.querySelector('#rsvp-partner').value.trim();
             const attendance = form.querySelector('input[name="attendance"]:checked').value;
             const comment = form.querySelector('#rsvp-comment').value.trim();
 
-            // Объединяем имя и имя пары, т.к. в таблице под это отдельной колонки нет
-            const name = partnerNames ? (fullName + ' / ' + partnerNames) : fullName;
+            const name = fullName;
             const isAttending = attendance === 'Да, с удовольствием!';
 
             // doPost(e) в Apps Script ждёт JSON.parse(e.postData.contents),
@@ -932,6 +934,18 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
+            // Плавно показываем видео, как только оно готово к воспроизведению
+            const bgVideo = document.querySelector('.video-bg');
+            if (bgVideo) {
+                if (bgVideo.readyState >= 3) {
+                    bgVideo.classList.add('video-ready');
+                } else {
+                    bgVideo.addEventListener('loadeddata', function() {
+                        bgVideo.classList.add('video-ready');
+                    }, { once: true });
+                }
+            }
+
             const blocks = document.querySelectorAll('.glass-block, .initials-divider');
             
             const observerOptions = {
